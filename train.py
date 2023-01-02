@@ -5,8 +5,8 @@
 
 
 import os
-os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"]="1"
+# os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 
 # In[ ]:
@@ -37,7 +37,7 @@ args = parser.parse_args()
 
 category_dict = {"유형": "type", "극성": "polarity", "시제": "tense", "확실성": "certainty"}
 category = args.category
-pretrained_model_name_or_path = "kykim/electra-kor-base"
+pretrained_model_name_or_path = "beomi/KcELECTRA-base-v2022"
 
 # # Prepare Dataset
 
@@ -173,17 +173,17 @@ training_args = TrainingArguments(
     per_device_train_batch_size=32,  # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
     gradient_accumulation_steps=1,   # Number of updates steps to accumulate the gradients for
-    warmup_steps=500,                # number of warmup steps for learning rate scheduler
+    warmup_steps=1000,                # number of warmup steps for learning rate scheduler
     weight_decay=0.01,               # strength of weight decay
     logging_dir='./logs',            # directory for storing logs
     load_best_model_at_end=True,
     metric_for_best_model="f1",
     evaluation_strategy = "epoch",
     save_strategy= "epoch",
-    learning_rate=1e-4,
+    learning_rate=5e-6,
     do_eval=True,
     logging_steps=50,
-    fp16=True,
+#     fp16=True,
     run_name=name,
 )
 
